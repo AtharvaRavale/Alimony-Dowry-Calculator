@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %} Close |  Calculator{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="card shadow p-4">
+        <h2 class="mb-4 text-center">Latest News</h2>
+        <p>Welcome to the news section. Here you'll find the latest updates related to family law, financial rights, and social awareness.</p>
+        <ul>
+            <li>📢 <strong>2025 Update:</strong> Supreme Court announces new guidelines on alimony structure.</li>
+            <li>📰 Campaigns rising against misuse of alimony laws — more public debates expected this month.</li>
+            <li>💬 Forums and support groups gaining traction for affected individuals seeking justice.</li>
+        </ul>
+        <div class="mt-4 text-center">
+            <a href="{% url 'alimony' %}" class="btn btn-primary">← Back to Alimony Calculator</a>
+            <a href="{% url 'dowry' %}" class="btn btn-primary">← Back to Dowry Calculator</a>
+
+        </div>
+    </div>
+</div>
+{% endblock %}

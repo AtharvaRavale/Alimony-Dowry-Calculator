@@ -1,0 +1,266 @@
+{% extends 'base.html' %}
+
+{% block title %}Alimony & Dowry Explained | Calculator {% endblock %}
+
+{% block extra_head %}
+<style>
+    .info-container {
+        max-width: 1000px;
+        margin: 0 auto;
+    }
+    
+    .hero-section {
+        background: linear-gradient(135deg, #6c63ff 0%, #4d44db 100%);
+        color: white;
+        padding: 60px 20px;
+        text-align: center;
+        border-radius: 16px;
+        margin-bottom: 40px;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .hero-title {
+        font-family: 'Playfair Display', serif;
+        font-weight: 700;
+        font-size: 2.5rem;
+        margin-bottom: 20px;
+    }
+    
+    .hero-subtitle {
+        font-size: 1.2rem;
+        max-width: 700px;
+        margin: 0 auto;
+        opacity: 0.9;
+    }
+    
+    .info-card {
+        border-radius: 16px;
+        border: none;
+        box-shadow: 0 10px 30px rgba(108, 99, 255, 0.1);
+        overflow: hidden;
+        margin-bottom: 30px;
+    }
+    
+    .card-header-custom {
+        background: linear-gradient(135deg, #4d44db 0%, #2a2a72 100%);
+        color: white;
+        padding: 20px;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+    }
+    
+    .card-icon {
+        font-size: 1.8rem;
+        margin-right: 15px;
+    }
+    
+    .card-body-custom {
+        padding: 30px;
+    }
+    
+    .definition-box {
+        background-color: #f8f9fa;
+        border-left: 4px solid #6c63ff;
+        padding: 20px;
+        border-radius: 0 8px 8px 0;
+        margin: 20px 0;
+    }
+    
+    .factor-list {
+        list-style-type: none;
+        padding: 0;
+    }
+    
+    .factor-list li {
+        padding: 10px 0;
+        border-bottom: 1px solid #eee;
+        display: flex;
+        align-items: center;
+    }
+    
+    .factor-list li:last-child {
+        border-bottom: none;
+    }
+    
+    .factor-icon {
+        color: #6c63ff;
+        margin-right: 10px;
+        font-size: 1.2rem;
+    }
+    
+    .comparison-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 25px 0;
+    }
+    
+    .comparison-table th {
+        background-color: #6c63ff;
+        color: white;
+        padding: 12px;
+        text-align: left;
+    }
+    
+    .comparison-table td {
+        padding: 12px;
+        border-bottom: 1px solid #eee;
+    }
+    
+    .comparison-table tr:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+    
+    .legal-notice {
+        background-color: #fff8f8;
+        border: 1px solid #ff6584;
+        border-radius: 8px;
+        padding: 20px;
+        margin-top: 40px;
+    }
+    
+    @media (max-width: 768px) {
+        .hero-title {
+            font-size: 2rem;
+        }
+        
+        .card-header-custom {
+            flex-direction: column;
+            text-align: center;
+        }
+        
+        .card-icon {
+            margin-right: 0;
+            margin-bottom: 10px;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="info-container">
+    <div class="hero-section">
+        <h1 class="hero-title">Understanding Alimony & Dowry</h1>
+        <p class="hero-subtitle">Essential information about financial aspects of marriage and divorce</p>
+    </div>
+
+    <div class="row">
+        <!-- Alimony Card -->
+        <div class="col-md-6">
+            <div class="info-card">
+                <div class="card-header-custom">
+                    <i class="fas fa-balance-scale card-icon"></i>
+                    <h2>Alimony (Spousal Support)</h2>
+                </div>
+                <div class="card-body-custom">
+                    <div class="definition-box">
+                        <p><strong>Definition:</strong> Financial support paid by one spouse to another after divorce or separation, intended to maintain the receiving spouse's standard of living.</p>
+                    </div>
+                    
+                    <h4><i class="fas fa-list-ul factor-icon"></i> Key Factors in Alimony Determination:</h4>
+                    <ul class="factor-list">
+                        <li><i class="fas fa-user factor-icon"></i> Duration of marriage</li>
+                        <li><i class="fas fa-money-bill-wave factor-icon"></i> Income and earning capacity of both spouses</li>
+                        <li><i class="fas fa-home factor-icon"></i> Standard of living during marriage</li>
+                        <li><i class="fas fa-child factor-icon"></i> Child custody arrangements</li>
+                        <li><i class="fas fa-graduation-cap factor-icon"></i> Education and employability</li>
+                        <li><i class="fas fa-calendar-alt factor-icon"></i> Age and health of both parties</li>
+                    </ul>
+                    
+                    <h4><i class="fas fa-clock factor-icon"></i> Types of Alimony:</h4>
+                    <ul class="factor-list">
+                        <li><i class="fas fa-arrow-right factor-icon"></i> <strong>Temporary:</strong> During divorce proceedings</li>
+                        <li><i class="fas fa-arrow-right factor-icon"></i> <strong>Rehabilitative:</strong> For education/training</li>
+                        <li><i class="fas fa-arrow-right factor-icon"></i> <strong>Permanent:</strong> Long-term support</li>
+                        <li><i class="fas fa-arrow-right factor-icon"></i> <strong>Lump-sum:</strong> One-time payment</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Dowry Card -->
+        <div class="col-md-6">
+            <div class="info-card">
+                <div class="card-header-custom">
+                    <i class="fas fa-gifts card-icon"></i>
+                    <h2>Dowry System</h2>
+                </div>
+                <div class="card-body-custom">
+                    <div class="definition-box">
+                        <p><strong>Definition:</strong> Money, goods, or property brought by a bride to her husband upon marriage, traditionally practiced in some cultures.</p>
+                    </div>
+                    
+                    <h4><i class="fas fa-exclamation-triangle factor-icon"></i> Legal Status:</h4>
+                    <ul class="factor-list">
+                        <li><i class="fas fa-ban factor-icon"></i> <strong>Illegal</strong> in many countries including India (Dowry Prohibition Act, 1961)</li>
+                        <li><i class="fas fa-gavel factor-icon"></i> Considered a punishable offense</li>
+                        <li><i class="fas fa-heart factor-icon"></i> Voluntary gifts without demands are permitted</li>
+                    </ul>
+                    
+                    <h4><i class="fas fa-lightbulb factor-icon"></i> Problems Associated:</h4>
+                    <ul class="factor-list">
+                        <li><i class="fas fa-female factor-icon"></i> Financial burden on bride's family</li>
+                        <li><i class="fas fa-skull factor-icon"></i> Domestic violence and dowry deaths</li>
+                        <li><i class="fas fa-scale-balanced factor-icon"></i> Gender inequality reinforcement</li>
+                        <li><i class="fas fa-hand-holding-dollar factor-icon"></i> Materialistic approach to marriage</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Comparison Section -->
+    <div class="info-card mt-4">
+        <div class="card-header-custom">
+            <i class="fas fa-not-equal card-icon"></i>
+            <h2>Key Differences</h2>
+        </div>
+        <div class="card-body-custom">
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Aspect</th>
+                        <th>Alimony</th>
+                        <th>Dowry</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Direction of Payment</td>
+                        <td>From higher-earning spouse to lower-earning spouse</td>
+                        <td>From bride's family to groom's family</td>
+                    </tr>
+                    <tr>
+                        <td>Legal Status</td>
+                        <td>Legal and court-ordered</td>
+                        <td>Illegal in many countries</td>
+                    </tr>
+                    <tr>
+                        <td>Purpose</td>
+                        <td>Financial support post-divorce</td>
+                        <td>Marriage settlement (traditional)</td>
+                    </tr>
+                    <tr>
+                        <td>Timing</td>
+                        <td>After marriage ends</td>
+                        <td>Before/during marriage</td>
+                    </tr>
+                    <tr>
+                        <td>Gender Association</td>
+                        <td>Gender-neutral (can go to either spouse)</td>
+                        <td>Primarily affects women</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <!-- Legal Notice -->
+    <div class="legal-notice">
+        <h4><i class="fas fa-gavel text-danger"></i> Important Legal Notice</h4>
+        <p>This information is for educational purposes only. Laws regarding alimony and dowry vary by jurisdiction and change over time. For specific legal advice regarding your situation, please consult with a qualified family law attorney in your area.</p>
+        <p>If you are experiencing dowry harassment or domestic violence, please contact local authorities or support organizations in your country.</p>
+    </div>
+</div>
+{% endblock %}

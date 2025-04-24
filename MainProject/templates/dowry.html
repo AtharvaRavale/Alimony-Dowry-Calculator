@@ -1,0 +1,265 @@
+{% extends 'base.html' %}
+
+{% block title %}Calculate | Dowry Calculator{% endblock %}
+
+{% block extra_head %}
+<style>
+    .calculator-container {
+        max-width: 700px;
+        margin: 0 auto;
+    }
+    
+    .calculator-card {
+        border-radius: 16px;
+        border: none;
+        box-shadow: 0 10px 30px rgba(108, 99, 255, 0.15);
+        overflow: hidden;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(5px);
+    }
+    
+    .calculator-header {
+        background: linear-gradient(135deg, #6c63ff 0%, #4d44db 100%);
+        color: white;
+        padding: 25px;
+        text-align: center;
+    }
+    
+    .calculator-title {
+        font-family: 'Playfair Display', serif;
+        font-weight: 700;
+        margin-bottom: 0;
+    }
+    
+    .form-label {
+        font-weight: 500;
+        color: #4a4a4a;
+        margin-bottom: 8px;
+    }
+    
+    .form-select {
+        padding: 12px 15px;
+        border-radius: 10px;
+        border: 1px solid #e0e0e0;
+        transition: all 0.3s ease;
+    }
+    
+    .form-select:focus {
+        border-color: #6c63ff;
+        box-shadow: 0 0 0 0.25rem rgba(108, 99, 255, 0.25);
+    }
+    
+    .calculate-btn {
+        background: linear-gradient(135deg, #6c63ff 0%, #4d44db 100%);
+        border: none;
+        padding: 12px 30px;
+        font-size: 1.1rem;
+        font-weight: 500;
+        letter-spacing: 0.5px;
+        transition: all 0.3s ease;
+        width: 200px;
+    }
+    
+    .calculate-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 20px rgba(108, 99, 255, 0.3);
+    }
+    
+    .popup-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.7);
+        z-index: 9999;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .result-popup {
+        background: white;
+        border-radius: 16px;
+        padding: 30px;
+        width: 90%;
+        max-width: 500px;
+        text-align: center;
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+        animation: popIn 0.4s ease-out;
+    }
+    
+    @keyframes popIn {
+        0% { transform: scale(0.8); opacity: 0; }
+        100% { transform: scale(1); opacity: 1; }
+    }
+    
+    .result-text {
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin-bottom: 25px;
+        color: #2a2a72;
+    }
+    
+    .close-btn {
+        background: linear-gradient(135deg, #ff6584 0%, #e64c7e 100%);
+        border: none;
+        padding: 10px 25px;
+        border-radius: 30px;
+        font-weight: 500;
+        color: white;
+        transition: all 0.3s ease;
+    }
+    
+    .close-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(255, 101, 132, 0.3);
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="calculator-container">
+    <div class="calculator-card">
+        <div class="calculator-header">
+            <h1 class="calculator-title">Dowry Calculator</h1>
+        </div>
+        
+        <div class="card-body p-4 p-md-5">
+            <form method="post" id="alimonyForm">
+                {% csrf_token %}
+                
+                <div class="row">
+                    <!-- Age Dropdown -->
+                    <div class="col-md-6 mb-4">
+                        <label for="age" class="form-label">Age</label>
+                        <select class="form-select" id="age" name="age" required>
+                            <option value="">Select Age</option>
+                            <option value="18 to 25">18 to 25</option>
+                            <option value="26 to 30">26 to 30</option>
+                            <option value="31 to 40">31 to 40</option>
+                            <option value="41 to 50">41 to 50</option>
+                            <option value="above 50">Above 50</option>
+                        </select>
+                    </div>
+
+                    <!-- Profession Dropdown -->
+                    <div class="col-md-6 mb-4">
+                        <label for="profession" class="form-label">Profession</label>
+                        <select class="form-select" id="profession" name="profession" required>
+                            <option value="">Select Profession</option>
+                            <option value="unemployed">Unemployed</option>
+                            <option value="teacher">Teacher</option>
+                            <option value="engineer">Engineer</option>
+                            <option value="doctor">Doctor</option>
+                            <option value="lawyer">Lawyer</option>
+                            <option value="others">Others</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <!-- Salary Dropdown -->
+                    <div class="col-md-6 mb-4">
+                        <label for="salary" class="form-label">Monthly Salary (in ₹)</label>
+                        <select class="form-select" id="salary" name="salary" required>
+                            <option value="">Select Salary</option>
+                            <option value="less_20000">Less than ₹20,000</option>
+                            <option value="20000_50000">₹20,000 - ₹50,000</option>
+                            <option value="50000_100000">₹50,000 - ₹1,00,000</option>
+                            <option value="above_100000">Above ₹1,00,000</option>
+                        </select>
+                    </div>
+
+                    <!-- Things Owed by Husband -->
+                    <div class="col-md-6 mb-4">
+                        <label for="owed_items" class="form-label">Things Owed by Parents</label>
+                        <select class="form-select" id="owed_items" name="owed_items" required>
+                            <option value="">Select an Option</option>
+                            <option value="none">None</option>
+                            <option value="jewelry">Jewelry</option>
+                            <option value="property">Property</option>
+                            <option value="money">Money</option>
+                            <option value="multiple">Multiple Items</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Dowry Taken -->
+                <!-- <div class="mb-4">
+                    <label for="dowry" class="form-label">Was Dowry Taken?</label>
+                    <select class="form-select" id="dowry" name="dowry" required>
+                        <option value="">Select</option>
+                        <option value="yes">Yes</option>
+                        <option value="no">No</option>
+                    </select>
+                </div> -->
+
+                <!-- Submit Button -->
+                <div class="text-center mt-4">
+                    <button type="button" class="btn calculate-btn" onclick="startCounter()">
+                        <i class="fas fa-calculator me-2"></i> CALCULATE
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Result Popup -->
+<div class="popup-overlay" id="popupOverlay">
+    <div class="result-popup">
+        <div class="result-text" id="popupText">Calculating...</div>
+        <a href="{% url 'close' %}" class="btn btn-danger">
+            <i class="fas fa-times me-2"></i> Close
+        </a>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    function startCounter() {
+        // Validate form first
+        const form = document.getElementById('alimonyForm');
+        const inputs = form.querySelectorAll('select[required]');
+        let isValid = true;
+        
+        inputs.forEach(input => {
+            if (!input.value) {
+                input.style.borderColor = '#ff6584';
+                isValid = false;
+            } else {
+                input.style.borderColor = '#e0e0e0';
+            }
+        });
+        
+        if (!isValid) {
+            alert('Please fill in all required fields');
+            return;
+        }
+        
+        // Show popup
+        const popup = document.getElementById("popupOverlay");
+        popup.style.display = "flex";
+        
+        // Counter animation
+        let count = 0;
+        const target = 50000;
+        const popupText = document.getElementById("popupText");
+        
+        const interval = setInterval(() => {
+            count += Math.floor(Math.random() * 300) + 100;
+            if (count >= target) {
+                count = target;
+                clearInterval(interval);
+            }
+            popupText.textContent = "Number of deaths by alimony are: " + count.toLocaleString();
+        }, 50);
+    }
+    
+    function closePopup() {
+        document.getElementById("popupOverlay").style.display = "none";
+    }
+</script>
+{% endblock %}
